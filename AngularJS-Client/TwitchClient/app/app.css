@@ -1,0 +1,53 @@
+/* app css stylesheet */
+
+.menu {
+  list-style: none;
+  border-bottom: 0.1em solid black;
+  margin-bottom: 1em;
+  padding: 0 0 0.5em;
+}
+
+.menu:before {
+  content: "[";
+}
+
+.menu:after {
+  content: "]";
+}
+
+.menu > li {
+  display: inline;
+}
+
+.menu > li:before {
+  content: "|";
+  padding-right: 0.3em;
+}
+
+/* ReSharper disable once CssBrowserCompatibility */
+.menu > li:nth-child(1):before {
+  content: "";
+  padding: 0;
+}
+
+/* Chat client CSS */
+
+table.connect-table {
+    width: 500px;
+}
+
+table.connect-table td {
+    padding: 2px 4px 2px 4px;
+}
+
+table.connect-table tr td:last-child {
+    width: 100%;
+}
+
+table.connect-table tr td:last-child input {
+    width: 100%;
+}
+
+button.connect-button {
+    width: 120px;
+}

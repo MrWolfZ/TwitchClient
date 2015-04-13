@@ -1,0 +1,40 @@
+<form>
+  <table class="connect-table" ng-if="!isConnected">
+    <tr>
+      <td>Username:</td>
+      <td><input type="text" name="username" ng-model="username" ng-disabled="isConnecting" required="" /></td>
+    </tr>
+    <tr>
+      <td>AuthToken:</td>
+      <td><input type="text" name="authtoken" ng-model="authToken" ng-disabled="isConnecting" required="" /></td>
+    </tr>
+  </table>
+  <button ng-click="connect()" class="connect-button" ng-if="!isConnected" ng-disabled="isConnecting">{{isConnecting ? 'Connecting...' : 'Connect'}}</button>
+  <button ng-click="disconnect()" class="connect-button" ng-if="isConnected" ng-disabled="isConnecting">{{isConnecting ? 'Disconnecting...' : 'Disconnect'}}</button>
+</form>
+
+<div style="width: 100%;" ng-if="isConnected" ng-controller="ChatController">
+  <table height-mod="-140" resize-to-window-dimensions>
+    <tr>
+      <td style="width: 80%;">
+        <div style="overflow-y: auto; overflow-wrap: break-word; max-width: 100%;" adjust-width="false" height-mod="-140" resize-to-window-dimensions scroll-glue>
+          <div style="max-width: 100%;" ng-repeat="message in messages track by message.messageId">{{message.User}}@{{message.ChannelName}}: {{message.Content}}</div>
+        </div>
+      </td>
+      <td>
+        <div adjust-width="false" height-mod="-140" resize-to-window-dimensions>
+          <div>Users: {{filteredUsers().length}}/{{users.length}}</div>
+          <input type="text" ng-model="userFilter" ng-model-options="{ getterSetter: true }" placeholder="Search users" />
+          <div style="overflow: auto" ng-if="filteredUsers().length <= userDisplayLimit" resize-to-window-dimensions height-mod="-186" adjust-width="false">
+            <div ng-repeat="user in users | filter : userFilter() | orderBy : user">{{user}}</div>
+          </div>
+          <div style="overflow: auto" ng-if="filteredUsers().length > userDisplayLimit" resize-to-window-dimensions height-mod="-186" adjust-width="false">
+            More than {{userDisplayLimit}} users match your search. Please adjust your search!
+          </div>
+        </div>
+      </td>
+    </tr>
+  </table>
+  <input type="text" style="width: 99.5%;">
+</div>
+<div style="clear: both"></div>
